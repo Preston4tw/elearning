@@ -49,17 +49,5 @@ inversions = 0
 
 f = open("IntegerArray.txt").readlines()
 array = [int(n) for n in f]
-array_slice = array
-#num_entries=4
-#array_slice = array[:num_entries]
-#array_slice = [1,3,5,2,4,6]
-
-sorted_array = merge_sort(array_slice)
-#print("array slice: {}".format(array_slice))
-#print("sorted array: {}".format(sorted_array))
+sorted_array = merge_sort(array)
 print("inversions: {}".format(inversions))
-#print(sorted_array == test_sorted_array)
-
-#sorted_array = merge_sort(array)
-#print("array: {}, sa: {}, i: {}".format(array, sorted_array, inversions))
-#print(inversions)
