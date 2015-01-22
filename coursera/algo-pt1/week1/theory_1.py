@@ -107,7 +107,6 @@ def get_second_largest(array):
         second_candidates.append(node.left)
         node = node.right
             
-    print("sc: {}".format(second_candidates))
     second_candidate = second_candidates[0]
 
     for candidate in second_candidates[1:]:
@@ -121,22 +120,24 @@ def get_second_largest(array):
     else:
         num_comparisons += 1
         second_largest_number = second_candidate
-    print(tree)
+    #print(tree)
 
     return num_comparisons, second_largest_number
 
-array = [1,2]
-array = range(1,5)
-#array = range(1,9)
-#array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-#array = [8,1,2,3,4,5,6,7]
-#array = [8,7,1,2,3,4,5,6]
-
-array_length = len(array)
-max_comparisons = int(array_length + math.log(array_length,2) - 2)
-
-print("Array size: {}, Max allowed comparisons: {}".format(array_length,
-    max_comparisons))
-num_comparisons, second_largest = get_second_largest(array)
-print("Comparisons: {}, Second Largest Number: {}".format(num_comparisons,
-    second_largest))
+for n in range(1,10):
+    # Ascending
+    array = range(1,(2**n)+1)
+    # Descending
+    #array = range(2**n,0,-1)
+    array_length = len(array)
+    max_comparisons = int(array_length + math.log(array_length,2) - 2)
+    num_comparisons, second_largest = get_second_largest(array)
+    print("Array size: {}, "
+          "Max allowed comparisons: {}, "
+          "Comparisons: {}, "
+          "Second Largest Number: {}".format(
+              array_length,
+              max_comparisons,
+              num_comparisons,
+              second_largest)
+          )
