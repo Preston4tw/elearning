@@ -11,6 +11,7 @@ for input size n make a binary tree of level log₂n deep
 n/2**level comparisons and results
 """
 
+import math
 from itertools import islice
 
 def chunk(it, size):
@@ -39,55 +40,31 @@ class Node(object):
             return True
         return False
 
+array = [8,1,2,3,4,5,6,7]
+
 nodes = {}
-nodes[0] = []
 
-for n in a:
-    nodes[0].append(Node(n))
+node_levels = int(math.log(len(array),2))
 
-nodes[1] = []
-for left, right in chunk(nodes[0], 2):
-    if left > right:
-        node = Node(left, left, right)
+for level in range(node_levels):
+    nodes[level] = []
+    nodes[level+1] = []
+
+# Build the tree
+for level in range(node_levels):
+    if level == 0:
+        for left, right in chunk(array, 2):
+            nodes[level].append(left)
+            nodes[level].append(right)
+            if left < right:
+                nodes[level+1].append(right)
+            else:
+                nodes[level+1].append(left)
     else:
-        node = Node(right, left, right)
-    nodes[1].append(node)
-
-nodes[2] = []
-for left, right in chunk(nodes[1], 2):
-    if left > right:
-        node = Node(left, left, right)
-    else:
-        node = Node(right, left, right)
-    nodes[2].append(node)
-
-nodes[3] = []
-for left, right in chunk(nodes[2], 2):
-    if left > right:
-        node = Node(left, left, right)
-    else:
-        node = Node(right, left, right)
-    nodes[3].append(node)
-
-nodes[4] = []
-for left, right in chunk(nodes[3], 2):
-    if left > right:
-        node = Node(left, left, right)
-    else:
-        node = Node(right, left, right)
-    nodes[4].append(node)
+        for left, right in chunk(nodes[level], 2):
+            if left < right:
+                nodes[level+1].append(right)
+            else:
+                nodes[level+1].append(left)
 
 print(nodes)
-"""
-4 3
-\ /
- 4
-t2 = []
-print(a)
-for pos in range(1, len(a)):
-    if a[pos] > a[pos-1]:
-        t2.append(a[pos])
-    else:
-        t2.append(a[pos-1])
-print(t2)
-"""
