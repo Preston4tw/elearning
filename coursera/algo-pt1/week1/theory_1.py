@@ -25,7 +25,7 @@ class Node(object):
         self.right = right
 
     def __repr__(self):
-        return str(self.value)
+        return str(self)
 
     def __str__(self):
         return str(self.value)
@@ -41,6 +41,7 @@ class Node(object):
         return False
 
 array = [8,1,2,3,4,5,6,7]
+array = [8,7,1,2,3,4,5,6]
 
 nodes = {}
 
@@ -54,17 +55,53 @@ for level in range(node_levels):
 for level in range(node_levels):
     if level == 0:
         for left, right in chunk(array, 2):
+            left = Node(left)
+            right = Node(right)
             nodes[level].append(left)
             nodes[level].append(right)
             if left < right:
-                nodes[level+1].append(right)
+                nodes[level+1].append(Node(right, left, right))
             else:
-                nodes[level+1].append(left)
+                nodes[level+1].append(Node(left, left, right))
     else:
         for left, right in chunk(nodes[level], 2):
             if left < right:
-                nodes[level+1].append(right)
+                nodes[level+1].append(Node(right, left, right))
             else:
-                nodes[level+1].append(left)
+                nodes[level+1].append(Node(left, left, right))
 
 print(nodes)
+
+"""
+Max will be at the top. The second largest will either be second from the top OR
+will have been selected against the largest. To find the second largest need to
+compare tree level second from the top vs all numbers that were selected against
+from the largest
+"""
+"""
+2nd largest will           8
+be in the path of      8       7      <--- Largest will either be at this level or
+the largest number   8   3   5   7
+                    8 1 2 3 4 5 6 7
+"""
+
+candidate_1 = nodes[level+1][0].right
+candidate_2 = []
+node = nodes[level+1][0].left
+for level in range(level):
+    candidate_2.append(node.right)
+    node = node.left
+        
+max_c2 = 0
+for n in candidate_2:
+    if n > max_c2:
+        max_c2 = n
+
+if candidate_1 > max_c2:
+    second_largest_number = candidate_1
+else:
+    second_largest_number = max_c2
+
+print("c1: {}, c2: {}. sln: {}".format(candidate_1, candidate_2,
+    second_largest_number))
+
