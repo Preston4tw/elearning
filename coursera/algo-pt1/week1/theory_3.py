@@ -8,18 +8,47 @@ can for solving this problem.
 """
 
 """
-Since we're dealing with distinct integers, IF there is a point in the array
-where indexes and values match, it is contiguous, meaning we only have to look
-for the start of the section and follow it until it ends.
+I see two possible interpretations of this problem:
+    1. boolean index_equals_value: does the array contain *any* value at an
+       index where the index equals the value. Return true/false.
 
-To search for this area we'll want to bisect the array.
+    2. index_start, index_end index_equals_Value: if the array contains 1 or
+       more values at indexes where the value and index is equivalent, return
+       the index where that range begins and ends*. Return array indicies for
+       the beginning and end of the range*.
 
-If value > index, check left
-If value < index, check right
+    *  Since we're dealing with distinct integers, there can be a section of an
+       array where A[i] = i, ex:
+           A = [-10, -5, -2, 3, 4, 5, 7, 9, 11]
+
+           A[3] = 3, A[4] = 4 , A[5] = 5
+
+       As soon as there is a break in the section, because the integers are
+       distinct, there can't be a point later in the array for which A[i] = i is
+       true: the smallest possible incremental value is 1, which is the
+       same value by which the index increases.
+                                      V
+                  0   1   2  3  4  5  6  7  8
+           A = [-10, -5, -2, 3, 4, 5, 7, 8, 9]
+
+    index   value   check
+    0     > -10     right
+    1     > -5      right
+    2     > -2      right
+    3     = 3       !
+    4     = 4       !
+    5     = 5       !
+    6     < 7       left
+    7     < 8       left
+    8     < 9       left
 """
 
 def index_equals_value(array):
     array_length = len(array)
+    # Quickly check for the edge case that the entire array is A[i] = i
+    # Array is zero indexed so use length - 1
+    if array[0] == 0 and array[array_length-1] == array_length - 1:
+        return True
     position = array_length
     if array[position] == position:
         # Position is within the A[i] = i section
@@ -30,13 +59,5 @@ def index_equals_value(array):
         if index == value:
             print("Index {}: {}".format(index, value))
 
-
-array = [-10,0,2,3,5,10]
-index   value   check
-0     > -10     right
-1     > 0       right
-2     = 2       !
-3     = 3       !
-4     < 5       left
-
-index_equals_value(array)
+array = [-10, -5, -2, 3, 4, 5, 7, 9, 11]
+print(index_equals_value(array))
