@@ -37,9 +37,8 @@ following space.)
 import itertools
 
 def quicksort(array):
-    """
-    How to implement quicksort
-    """
+    global comparisons
+    comparisons += len(array) - 1
     if len(array) == 1:
         return array
     if len(array) == 2:
@@ -67,7 +66,13 @@ def quicksort(array):
     return list(itertools.chain(first_half, second_half))
 
 def main():
-    print(quicksort([3,8,2,5,1]))
+    global comparisons
+    comparisons = 0
+    f = open("QuickSort.txt")
+    array = f.readlines()
+    array = [int(i) for i in array]
+    sorted_array = quicksort(array)
+    print(comparisons)
 
 if __name__ == "__main__":
     main()
