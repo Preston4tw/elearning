@@ -36,6 +36,25 @@ following space.)
 
 import itertools
 
+"""
+Choose pivot functions should return indexes because to get the correct answers
+for the programming exercise, as a pre-processing step we will swap the first
+element of the array with the pivot
+"""
+
+def choose_pivot(array):
+    # Return the first element of the array
+    return 0
+
+"""
+def choose_pivot(array):
+    # Return the last element of the array
+    return len(array) - 1
+
+def choose_pivot(array):
+    pass
+"""
+
 def quicksort(array):
     global comparisons
     comparisons += len(array) - 1
@@ -47,7 +66,12 @@ def quicksort(array):
         else:
             return [array[1],array[0]]
     # Partition index is between array[0] and array[1]
+    # Arbitrarily will use 1 and adjust as needed for a zero indexed array
     partition_index = 1
+
+    # Move the pivot to the first element
+    pivot_index = choose_pivot(array)
+    array[0], array[pivot_index] = array[pivot_index], array[0]
     # pivot = choose_pivot(array)
     # assume pivot is the first element of the array
     pivot = array[0]
