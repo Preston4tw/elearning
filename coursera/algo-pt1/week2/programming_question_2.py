@@ -33,3 +33,41 @@ answer.  (We do not require you to submit your code, so feel free to use the
 programming language of your choice, just type the numeric answer in the
 following space.)
 """
+
+import itertools
+
+def quicksort(array):
+    """
+    How to implement quicksort
+    """
+    if len(array) == 1:
+        return array
+    if len(array) == 2:
+        if array[0] < array[1]:
+            return array
+        else:
+            return [array[1],array[0]]
+    # Partition index is between array[0] and array[1]
+    partition_index = 1
+    # pivot = choose_pivot(array)
+    # assume pivot is the first element of the array
+    pivot = array[0]
+    for index,value in list(enumerate(array))[1:]:
+        if pivot < value:
+            continue
+        if pivot > value:
+            # In the case that array[1] hits this condition, it 'swaps' with
+            # itself
+            array[index], array[partition_index] = array[partition_index], array[index]
+            partition_index += 1
+    # Move the pivot into place
+    array[0], array[partition_index-1] = array[partition_index-1], array[0]
+    first_half = quicksort(array[:partition_index])
+    second_half = quicksort(array[partition_index:])
+    return list(itertools.chain(first_half, second_half))
+
+def main():
+    print(quicksort([3,8,2,5,1]))
+
+if __name__ == "__main__":
+    main()
