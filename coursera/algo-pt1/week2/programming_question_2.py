@@ -71,6 +71,10 @@ def choose_pivot(array):
 def quicksort(array):
     global comparisons
     comparisons += len(array) - 1
+
+    # Base cases
+    if not array:
+        return list()
     if len(array) == 1:
         return array
     if len(array) == 2:
@@ -87,25 +91,31 @@ def quicksort(array):
     #   right = partition_index
     partition_index = 1
 
-    # Move the pivot to the first element
+    # choose_pivot returns the array index of the chosen pivot value
+    # ex. array = [1,2,3,4,5], if 3 is the chosen pivot, pivot_index will be 2,
+    # as a[2] == 3
     pivot_index = choose_pivot(array)
+    # The coursera course assumes as a pre-processing step that the pivot is
+    # moved to the first element of the array. Swap in place with whatever is
+    # there
     array[0], array[pivot_index] = array[pivot_index], array[0]
-    # pivot = choose_pivot(array)
-    # assume pivot is the first element of the array
     pivot = array[0]
-    for index,value in list(enumerate(array))[1:]:
+    # As the array is being modified as its being traversed, I don't think
+    # enumerate(array) or for value in array can be used. This may need some
+    # testing later to better understand pythons implicit use of values vs
+    # references.
+    for index in range(1,len(array)):
+        value = array[index]
         if pivot < value:
             continue
         if pivot > value:
-            # In the case that array[1] hits this condition, it 'swaps' with
-            # itself
             array[index], array[partition_index] = array[partition_index], array[index]
             partition_index += 1
     # Move the pivot into place
     array[0], array[partition_index-1] = array[partition_index-1], array[0]
-    first_half = quicksort(array[:partition_index])
+    first_half = quicksort(array[:partition_index-1])
     second_half = quicksort(array[partition_index:])
-    return list(itertools.chain(first_half, second_half))
+    return list(itertools.chain(first_half, [pivot], second_half))
 
 def main():
     global comparisons
