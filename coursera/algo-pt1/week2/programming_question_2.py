@@ -46,15 +46,6 @@ def choose_pivot(array):
     # Return the first element of the array
     return 0
 
-"""
-def choose_pivot(array):
-    # Return the last element of the array
-    return len(array) - 1
-
-def choose_pivot(array):
-    pass
-"""
-
 def quicksort(array):
     global comparisons
     comparisons += len(array) - 1
