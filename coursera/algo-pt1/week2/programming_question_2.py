@@ -70,7 +70,6 @@ def choose_pivot(array):
 
 def quicksort(array):
     global comparisons
-    comparisons += len(array) - 1
 
     # Base cases
     if not array:
@@ -78,10 +77,12 @@ def quicksort(array):
     if len(array) == 1:
         return array
     if len(array) == 2:
+        comparisons += len(array) - 1
         if array[0] < array[1]:
             return array
         else:
             return [array[1],array[0]]
+    comparisons += len(array) - 1
     # Partition index starts between array[0] and array[1]
     # The subarray syntax for arrays in python can be thought of as 'up to but
     # not including' when used as [:n], ex.
