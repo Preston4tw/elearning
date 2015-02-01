@@ -35,6 +35,7 @@ following space.)
 """
 
 import itertools
+import math
 
 """
 Choose pivot functions should return indexes because to get the correct answers
@@ -45,6 +46,27 @@ element of the array with the pivot
 def choose_pivot(array):
     # Return the first element of the array
     return 0
+    # Return the last element of the array
+    #return len(array) - 1
+    length = len(array)
+    i1 = 0
+    i2 = math.ceil(length / 2) - 1
+    i3 = length - 1
+    v1 = array[i1]
+    v2 = array[i2]
+    v3 = array[i3]
+    if v1 < v2 < v3:
+        return i2
+    if v1 < v3 < v2:
+        return i3
+    if v2 < v1 < v3:
+        return i1
+    if v2 < v3 < v1:
+        return i3
+    if v3 < v1 < v2:
+        return i1
+    if v3 < v2 < v1:
+        return i2
 
 def quicksort(array):
     global comparisons
