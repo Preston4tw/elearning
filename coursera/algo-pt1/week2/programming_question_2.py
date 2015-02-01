@@ -56,8 +56,13 @@ def quicksort(array):
             return array
         else:
             return [array[1],array[0]]
-    # Partition index is between array[0] and array[1]
-    # Arbitrarily will use 1 and adjust as needed for a zero indexed array
+    # Partition index starts between array[0] and array[1]
+    # The subarray syntax for arrays in python can be thought of as 'up to but
+    # not including' when used as [:n], ex.
+    # a = [1,2,3,4,5]; a[:2] == [1,2]
+    # When picking elements to the left and right of the partition index:
+    #   left  = partition_index - 1
+    #   right = partition_index
     partition_index = 1
 
     # Move the pivot to the first element
