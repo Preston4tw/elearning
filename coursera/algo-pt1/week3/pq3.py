@@ -21,3 +21,25 @@ times with different random seeds, and remember the smallest cut that you ever
 find.) Write your numeric answer in the space provided. So e.g., if your answer
 is 5, just type 5 in the space provided.
 """
+
+import itertools
+
+def main():
+    # Parse our input file into an array of verticies and edges
+    f = open("kargerMinCut.txt")
+    text = f.readlines()
+    global verticies, edges
+    verticies = []
+    edges = []
+    for line in text:
+        # Remove the trailing newline character
+        line = line.strip()
+        vertex, *vertex_edges = line.split("\t")
+        vertex = int(vertex)
+        vertex_edges = [int(i) for i in vertex_edges]
+        vertex_edge_list = list(itertools.product([vertex,], vertex_edges))
+        verticies.append(vertex)
+        edges.extend(vertex_edge_list)
+
+if __name__ == "__main__":
+    main()
