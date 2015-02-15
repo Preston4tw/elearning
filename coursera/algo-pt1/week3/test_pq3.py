@@ -1,6 +1,6 @@
 import pytest
 
-from pq3 import find_min_cut
+from pq3 import find_min_cut, find_min_cut_count
 
 """
     1  2   5  6
@@ -66,7 +66,7 @@ def test_find_min_cut():
 
     verticies = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    edges = (
+    edges = [
         (1,2),(1,3),(1,4),
         (2,1),(2,3),(2,4),(2,5),
         (3,1),(3,2),(3,4),
@@ -75,7 +75,7 @@ def test_find_min_cut():
         (6,5),(6,7),(6,8),
         (7,5),(7,6),(7,8),(7,4),
         (8,5),(8,6),(8,7),
-    )
+    ]
 
     a_side, b_side, edges = find_min_cut(verticies, edges)
     assert a_side == [1,2,3,4]
@@ -87,7 +87,7 @@ def test_find_min_cut_count():
     """As above, but only interested in the count of edges"""
     verticies = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    edges = (
+    edges = [
         (1,2),(1,3),(1,4),
         (2,1),(2,3),(2,4),(2,5),
         (3,1),(3,2),(3,4),
@@ -96,7 +96,7 @@ def test_find_min_cut_count():
         (6,5),(6,7),(6,8),
         (7,5),(7,6),(7,8),(7,4),
         (8,5),(8,6),(8,7),
-    )
+    ]
 
     # The min cut has two edges crossing the left and right side of the split
     # graph, (2,5) and (4,7)
