@@ -98,7 +98,19 @@ def test_find_min_cut_count():
         (8,5),(8,6),(8,7),
     ]
 
+    edge_filter = lambda x: (x[0], x[1]) if x[0] < x[1] else (x[1], x[0])
+    edges = sorted(list(set([edge_filter(edge) for edge in edges])))
+
     # The min cut has two edges crossing the left and right side of the split
     # graph, (2,5) and (4,7)
+
+    # find_min_cut_count won't be correct 100% of the time so run it multiple
+    # times
+
+    best_min_cut = len(verticies)
+    for n in range(10**7):
+        min_cut = find_min_cut_count(verticies, edges)
+        if min_cut < best_min_cut:
+            min_cut = best_min_cut
 
     assert find_min_cut_count(verticies, edges) == 2
