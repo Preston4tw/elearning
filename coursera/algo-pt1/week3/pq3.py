@@ -58,12 +58,8 @@ def find_min_cut_count(verticies, edges):
                 edges[index] = (ce_vertex1, edge_vertex2)
             if edge_vertex2 == ce_vertex2:
                 edges[index] = (edge_vertex1, ce_vertex1)
-        # Run another pass to delete self loops, where the edge has the same
-        # node on either end, ex. (1,1)
-        for index, edge in enumerate(edges):
-            edge_vertex1, edge_vertex2 = edge
-            if edge_vertex1 == edge_vertex2:
-                del edges[index]
+        # Remove self loops
+        edges = [edge for edge in edges if edge[0] != edge[1]]
     return len(edges)
 
 def randomized_contract(verticies, edges):
