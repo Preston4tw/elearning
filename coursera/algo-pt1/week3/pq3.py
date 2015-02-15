@@ -23,12 +23,59 @@ is 5, just type 5 in the space provided.
 """
 
 import itertools
+import random
+
+def find_min_cut(verticies, edges):
+    """Given a graph represented by a list of verticies and an adjacency list
+    (list of tuples) for edges, return the split as represented by each side of
+    the split of verticies and the edges through which the cut passes"""
+    return [None, None, None]
+
+def find_min_cut_count(verticies, edges):
+    """
+    Given a graph represented as a list of verticies and an adjacency list of
+    tuples edges, return the number of edges crossing the minimum cut of a graph
+    """
+    while len(verticies) > 1:
+        # Choose at random an edge to contract
+        contract_edge = random.choice(edges)
+        # Contract: delete and fuse the verticies at each end of the edge
+        del edges[edges.index(contract_edge)]
+        ce_vertex1, ce_vertex2 = contract_edge
+        # Fuse: (delete) the second vertex into the first
+        del verticies[verticies.index(ce_vertex2)]
+        # All edges pointing to ce_vertex2 need to be updated to reflect the
+        # fusing. Find all references to ce_vertex2 and replace them with
+        # references to ce_vertex1
+        #
+        # The way we're going to update the edges list requires use of enumerate
+        # to have an index to overwrite the tuple at each index (though could
+        # use lookup via .index for every iteration, but that would be
+        # inefficient
+        for index, edge in enumerate(edges):
+            edge_vertex1, edge_vertex2 = edge
+            if edge_vertex1 == ce_vertex2:
+                edges[index] = (ce_vertex1, edge_vertex2)
+            if edge_vertex2 == ce_vertex2:
+                edges[index] = (edge_vertex1, ce_vertex1)
+        # Run another pass to delete self loops, where the edge has the same
+        # node on either end, ex. (1,1)
+        for index, edge in enumerate(edges):
+            edge_vertex1, edge_vertex2 = edge
+            if edge_vertex1 == edge_vertex2:
+                del edges[index]
+    return len(edges)
+
+def randomized_contract(verticies, edges):
+    """At random, choose an edge to contract. Contract by fusing the two
+    verticies and their edges together"""
+    contract_edge = random.choice(edges)
+    pass
 
 def main():
     # Parse our input file into an array of verticies and edges
     f = open("kargerMinCut.txt")
     text = f.readlines()
-    global verticies, edges
     verticies = []
     edges = []
     for line in text:
@@ -39,7 +86,7 @@ def main():
         vertex_edges = [int(i) for i in vertex_edges]
         vertex_edge_list = list(itertools.product([vertex,], vertex_edges))
         verticies.append(vertex)
-        edges.extend(vertex_edge_list)
+        edges.extend([Edge(v1, v2) for v1, v2 in vertex_edge_list])
 
 if __name__ == "__main__":
     main()
