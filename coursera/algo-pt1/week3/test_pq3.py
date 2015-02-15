@@ -108,9 +108,9 @@ def test_find_min_cut_count():
     # times
 
     best_min_cut = len(verticies)
-    for n in range(10**7):
+    for n in range(10**6):
         min_cut = find_min_cut_count(verticies, edges)
         if min_cut < best_min_cut:
-            min_cut = best_min_cut
+            best_min_cut = min_cut
 
-    assert find_min_cut_count(verticies, edges) == 2
+    assert best_min_cut == 2
