@@ -107,9 +107,11 @@ def test_find_min_cut_count():
     # find_min_cut_count won't be correct 100% of the time so run it multiple
     # times
 
+    n = len(verticies)
+    trials = int((n * (n - 1)) / 2)
     best_min_cut = len(verticies)
-    for n in range(10**6):
-        min_cut = find_min_cut_count(verticies, edges)
+    for n in range(trials):
+        min_cut = find_min_cut_count(verticies.copy(), edges.copy())
         if min_cut < best_min_cut:
             best_min_cut = min_cut
 
