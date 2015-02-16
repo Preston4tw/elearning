@@ -24,6 +24,7 @@ is 5, just type 5 in the space provided.
 
 import itertools
 import random
+import os
 
 def find_min_cut(verticies, edges):
     """Given a graph represented by a list of verticies and an adjacency list
@@ -36,12 +37,14 @@ def find_min_cut_count(verticies, edges):
     Given a graph represented as a list of verticies and an adjacency list of
     tuples edges, return the number of edges crossing the minimum cut of a graph
     """
-    while len(verticies) > 1:
+    while len(verticies) > 2:
         # Choose at random an edge to contract
         contract_edge = random.choice(edges)
         # Contract: delete and fuse the verticies at each end of the edge
-        del edges[edges.index(contract_edge)]
+        # When contracting an edge, contract all duplicates
         ce_vertex1, ce_vertex2 = contract_edge
+        cef = lambda x: False if x == (ce_vertex1, ce_vertex2) or x == (ce_vertex2, ce_vertex1) else True
+        edges = list(filter(cef, edges))
         # Fuse: (delete) the second vertex into the first
         del verticies[verticies.index(ce_vertex2)]
         # All edges pointing to ce_vertex2 need to be updated to reflect the
