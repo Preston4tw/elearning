@@ -85,7 +85,25 @@ def main():
         vertex_edges = [int(i) for i in vertex_edges]
         vertex_edge_list = list(itertools.product([vertex,], vertex_edges))
         verticies.append(vertex)
-        edges.extend([Edge(v1, v2) for v1, v2 in vertex_edge_list])
+        edges.extend(vertex_edge_list)
+
+    edge_filter = lambda x: (x[0], x[1]) if x[0] < x[1] else (x[1], x[0])
+    edges = sorted(list(set([edge_filter(edge) for edge in edges])))
+
+    # find_min_cut_count won't be correct 100% of the time so run it multiple
+    # times
+
+    n = len(verticies)
+    trials = int((n * (n - 1)) / 2)
+    best_min_cut = len(verticies)
+    print("trials: {}".format(trials))
+    for n in range(trials):
+        min_cut = find_min_cut_count(verticies.copy(), edges.copy())
+        if min_cut < best_min_cut:
+            best_min_cut = min_cut
+        print("trial: {}, mc: {}, bmc: {}".format(n, min_cut, best_min_cut))
+
+    print("Best min cut: {}".format(best_min_cut))
 
 if __name__ == "__main__":
     main()
