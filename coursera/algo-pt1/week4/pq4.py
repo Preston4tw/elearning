@@ -29,3 +29,36 @@ strongly suggest that you exchange tips for doing this on the discussion forums.
 SCC.txt is available at
 http://spark-public.s3.amazonaws.com/algo1/programming_prob/SCC.zip
 """
+
+"""
+kosaraju
+
+High level
+reverse all the directed arcs
+run DFS loop on the reversed graph
+    because graph is directed have to DFS a double loop
+    keep track of finishing times for each node
+change the id of each node to its finishing time in the first dfs run
+restore the original arc directions
+run DFS loop on the updated orig graph with finishing time identifiers
+magically watch as SCCs appear
+
+
+# keeps track of nodes processed
+global t = 0
+# Most recent vertex from which DFS was initiated
+global s = None
+
+# Assume nodes are labeled 1 to n
+
+for i=n, i>i, i--
+    if i not yet explored
+    Si = i
+    DFS(G,i)
+
+DFS(graph G, node i):
+    mark i explored
+    set leader(i) = node s
+    for each arc (i,j) E G
+        if j not yet explored
+"""
