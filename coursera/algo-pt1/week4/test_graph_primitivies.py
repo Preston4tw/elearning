@@ -1,6 +1,7 @@
 from graph_primitives import topological_order
 from graph_primitives import dfs
 from graph_primitives import get_strongly_connected_components
+from graph_primitives import get_graph_finishing_times
 
 def test_topological_order():
     """
@@ -110,3 +111,28 @@ def test_get_strongly_connected_components():
     assert ['d'] in sccs
     assert ['e', 'f', 'g'] in sccs
     assert ['h', 'i', 'j', 'k'] in sccs
+
+def test_get_graph_finishing_times():
+    graph = {
+        1: [4],
+        2: [8],
+        3: [6],
+        4: [7],
+        5: [2],
+        6: [9],
+        7: [1],
+        8: [5, 6],
+        9: [3, 7]
+    }
+    results = get_graph_finishing_times(graph)
+    assert results == {
+        1: 7,
+        2: 3,
+        3: 1,
+        4: 8,
+        5: 2,
+        6: 5,
+        7: 9,
+        8: 4,
+        9: 6,
+    }
