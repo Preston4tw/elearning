@@ -28,10 +28,14 @@ def dfs(graph, start_node, explored_nodes=None, stack=None):
     explored_nodes.append(tail)
     #print("added start node {} to stack and explored nodes".format(start_node))
     #print("stack: {}, en: {}".format(stack, explored_nodes))
-    for head in graph[tail]:
-        #print("head: {}, en: {}".format(head, explored_nodes))
-        if head not in explored_nodes:
-            dfs(graph, head, explored_nodes, stack)
+    try:
+        for head in graph[tail]:
+            #print("head: {}, en: {}".format(head, explored_nodes))
+            if head not in explored_nodes:
+                dfs(graph, head, explored_nodes, stack)
+    except KeyError:
+        # tail has no outgoing edges
+        pass
     #print("stack pre-pop: {}".format(stack))
     stack.pop()
     #print("stack post-pop: {}".format(stack))
