@@ -72,7 +72,6 @@ def test_dfs():
     assert dfs(graph, 'w') == ['w', 't']
     assert dfs(graph, 's') in [['s', 'v', 't', 'w'],
                                ['s', 'w', 't', 'v']]
-@pytest.mark.xfail
 def test_get_strongly_connected_components():
     """
     Given a directed graph represented as a dict of lists, where each key
@@ -80,39 +79,39 @@ def test_get_strongly_connected_components():
     arc, return lists of vertexes that are strongly connected
     """
     graph = {
-        'a': ['b'],
-        'b': ['c', 'd'],
-        'c': ['a', 'h', 'k'],
-        'd': ['e', 'g'],
-        'e': ['f'],
-        'f': ['g'],
-        'g': ['e'],
-        'h': ['g', 'i', 'j'],
-        'i': ['f', 'j'],
-        'j': ['k'],
-        'k': ['h'],
+        1: [2],
+        2: [3, 4],
+        3: [1, 8, 11],
+        4: [5, 7],
+        5: [6],
+        6: [7],
+        7: [5],
+        8: [7, 9, 10],
+        9: [6, 10],
+        10: [11],
+        11: [8],
     }
 
     """
     Graph visual representation:
-        b       d           e
+        2       4           5
         o------→o----------→o
-       ↗|        \      g  ↗ \
-     a/ |         \----→o-/  |
-     o  |         _____↗ ↖f ↙
-      ↖ |       h/        o
+       ↗|        \      7  ↗ \
+     1/ |         \----→o-/  |
+     o  |         _____↗ ↖6 ↙
+      ↖ |       8/        o
        \↓/-----→o--      ↗
-        o   k  ↗|  ↘i   /
-        c\-→o-/ |   o---
+        o   11 ↗|  ↘9   /
+        3\-→o-/ |   o---
              ↖  ↓  /
               --o←-
-                j
+                10
     """
     sccs = get_strongly_connected_components(graph)
-    assert ['a', 'b', 'c'] in sccs
-    assert ['d'] in sccs
-    assert ['e', 'f', 'g'] in sccs
-    assert ['h', 'i', 'j', 'k'] in sccs
+    assert [1, 2, 3] in sccs
+    assert [4] in sccs
+    assert [5, 6, 7] in sccs
+    assert [8, 9, 10, 11] in sccs
 
 def test_get_graph_finishing_times():
     graph = {

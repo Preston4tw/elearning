@@ -77,4 +77,34 @@ def get_graph_finishing_times(graph):
 
 def get_strongly_connected_components(graph):
     # Kosaraju two-pass
-    pass
+    graph_finishing_times = get_graph_finishing_times(graph)
+    rgft = dict([(v,k) for k,v in graph_finishing_times.items()])
+    explored_nodes = []
+    leader_nodes = []
+    for n in range(len(rgft), 0, -1):
+        node = rgft[n]
+        if node not in explored_nodes:
+            leader_nodes.append(node)
+            explored_nodes.extend(
+                    dfs(graph,
+                        node,
+                        explored_nodes=explored_nodes
+                    )
+            )
+    print(leader_nodes)
+    sccs = []
+    scc_explored_nodes = []
+    last_dfsr = []
+    for node in leader_nodes:
+        print("N: {}".format(node))
+        dfs_result = dfs(graph, node, explored_nodes=scc_explored_nodes)
+        print(" dfsr: {}, last_dfsr: {}".format(dfs_result, last_dfsr))
+        scc = list(set(dfs_result) - set(last_dfsr))
+        scc_explored_nodes.extend(scc)
+        scc_explored_nodes = list(set(scc_explored_nodes))
+        print(" explored: {}".format(scc_explored_nodes))
+        print(" scc: {}".format(scc))
+        last_dfsr = dfs_result
+        sccs.append(scc)
+        print(" sccs: {}".format(sccs))
+    return sccs
