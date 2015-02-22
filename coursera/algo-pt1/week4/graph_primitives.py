@@ -40,3 +40,6 @@ def dfs(graph, start_node, explored_nodes=None, stack=None):
         ordered_graph[start_node] = current_label
         current_label -= 1
     return explored_nodes
+
+def get_strongly_connected_components(graph):
+    pass
