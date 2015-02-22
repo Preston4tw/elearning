@@ -7,40 +7,42 @@ from graph_primitives import get_graph_finishing_times
 
 def test_topological_order():
     """
-    Given a directed graph represented as a dict of lists, where each key
-    represents the tail of an arc and each list entry represents the head of an
-    arc, return the topological ordering of the graph as a dict with the keys
-    representing the graph verticies and the values representing the topological
-    order.
+    Input: A directed graph represented as a list of tuples. Each tuple
+           represents verticies at the tail and head of an arc
+
+        ex. graph = [(1, 2), (1, 3), (2, 4), (3, 4)]
+
+        Graph visual representation
+
+              2
+              o
+            1↗ ↘4
+            o   o
+             ↘ ↗
+              o
+              3
+
+    Output: The topological ordering of the graph as a dict. Dict keys represent
+            the graph verticies, dict values represent the position in
+            topological ordering.
+
+        ex. {1: 1, 2: 2, 3: 3, 4: 4} or {1: 1, 3: 2, 2: 3, 4: 4}
     """
-    graph = {
-        's': ['v', 'w'],
-        'v': ['t'],
-        'w': ['t'],
-        't': [],
-    }
+    graph = [(1, 2), (1, 3), (2, 4), (3, 4)]
     """
-    Graph visual representation
-          v
-          o
-        s↗ ↘t
-        o   o
-         ↘ ↗
-          o
-          w
     """
     result = topological_order(graph)
     answers = [
         {
-            's': 1,
-            'w': 2,
-            'v': 3,
-            't': 4
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
         }, {
-            's': 1,
-            'v': 2,
-            'w': 3,
-            't': 4
+            1: 1,
+            3: 2,
+            2: 3,
+            4: 4,
         }
     ]
     assert result in answers
