@@ -62,3 +62,31 @@ DFS(graph G, node i):
     for each arc (i,j) E G
         if j not yet explored
 """
+
+def dfs(graph, start_node):
+    pass
+
+def main():
+    f = open('SCC.txt')
+    data = f.readlines()
+    global graph
+    global graph_reversed
+    graph = {}
+    graph_reversed = {}
+    # Build forward and reversed graphs as hash of lists from input data
+    for line in data:
+        line = line.strip()
+        arc_source, arc_dest = line.split()
+        arc_source = int(arc_source)
+        arc_dest = int(arc_dest)
+        if not arc_source in graph:
+            graph[arc_source] = []
+        graph[arc_source].append(arc_dest)
+        graph[arc_source].sort()
+        if not arc_dest in graph_reversed:
+            graph_reversed[arc_dest] = []
+        graph_reversed[arc_dest].append(arc_source)
+        graph_reversed[arc_dest].sort()
+
+if __name__ == '__main__':
+    main()
