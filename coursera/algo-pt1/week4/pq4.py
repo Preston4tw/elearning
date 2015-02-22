@@ -63,9 +63,6 @@ DFS(graph G, node i):
         if j not yet explored
 """
 
-def dfs(graph, start_node):
-    pass
-
 def main():
     f = open('SCC.txt')
     data = f.readlines()
