@@ -64,8 +64,7 @@ def get_graph_finishing_times(graph):
     label_offset = 1
     global ordered_graph
     ordered_graph = {}
-    #for node in reversed_graph:
-    for node in range(len(reversed_graph), 0, -1):
+    for node in reversed(list(reversed_graph.keys())):
         if node not in reversed_graph_explored_nodes:
             reversed_graph_explored_nodes.extend(
                 dfs(reversed_graph,
