@@ -30,46 +30,12 @@ SCC.txt is available at
 http://spark-public.s3.amazonaws.com/algo1/programming_prob/SCC.zip
 """
 
-"""
-kosaraju
-
-High level
-reverse all the directed arcs
-run DFS loop on the reversed graph
-    because graph is directed have to DFS a double loop
-    keep track of finishing times for each node
-change the id of each node to its finishing time in the first dfs run
-restore the original arc directions
-run DFS loop on the updated orig graph with finishing time identifiers
-magically watch as SCCs appear
-
-
-# keeps track of nodes processed
-global t = 0
-# Most recent vertex from which DFS was initiated
-global s = None
-
-# Assume nodes are labeled 1 to n
-
-for i=n, i>i, i--
-    if i not yet explored
-    Si = i
-    DFS(G,i)
-
-DFS(graph G, node i):
-    mark i explored
-    set leader(i) = node s
-    for each arc (i,j) E G
-        if j not yet explored
-"""
+import graph_primitives
 
 def main():
     f = open('SCC.txt')
     data = f.readlines()
-    global graph
-    global graph_reversed
     graph = {}
-    graph_reversed = {}
     # Build forward and reversed graphs as hash of lists from input data
     for line in data:
         line = line.strip()
@@ -80,10 +46,8 @@ def main():
             graph[arc_source] = []
         graph[arc_source].append(arc_dest)
         graph[arc_source].sort()
-        if not arc_dest in graph_reversed:
-            graph_reversed[arc_dest] = []
-        graph_reversed[arc_dest].append(arc_source)
-        graph_reversed[arc_dest].sort()
+    sccs = graph_primitives.get_strongly_connected_components(graph)
+    print(len(sccs))
 
 if __name__ == '__main__':
     main()
