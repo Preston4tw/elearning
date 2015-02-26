@@ -73,22 +73,24 @@ def get_hash(text):
 
 def main():
     f = open("dijkstraData.txt")
+    #f = open("example")
     text = f.readlines()
     graph = get_adjacency_list(text)
     #graph = get_hash(text)
     shortest_paths = dijkstra.compute_shortest_paths(graph, 1)
-    result = ",".join(
-        shortest_paths[7],
-        shortest_paths[37],
-        shortest_paths[59],
-        shortest_paths[82],
-        shortest_paths[99],
-        shortest_paths[115],
-        shortest_paths[133],
-        shortest_paths[165],
-        shortest_paths[188],
-        shortest_paths[197],
-    )
+    #pdb.set_trace()
+    result = ",".join([
+        str(shortest_paths[7]),
+        str(shortest_paths[37]),
+        str(shortest_paths[59]),
+        str(shortest_paths[82]),
+        str(shortest_paths[99]),
+        str(shortest_paths[115]),
+        str(shortest_paths[133]),
+        str(shortest_paths[165]),
+        str(shortest_paths[188]),
+        str(shortest_paths[197]),
+    ])
     print(result)
 
 if __name__ == '__main__':
