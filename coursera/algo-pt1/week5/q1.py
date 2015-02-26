@@ -46,9 +46,9 @@ def get_adjacency_list(text):
     for line in text:
         line = line.strip()
         vertex_1, *edges = line.split()
-        vertex_1 = int(vertex_source)
+        vertex_1 = int(vertex_1)
         for edge in edges:
-            vertex_2 distance = edge.split(',')
+            vertex_2, distance = edge.split(',')
             vertex_2 = int(vertex_2)
             distance = int(distance)
             e = Edge(vertex_1, vertex_2, distance)
