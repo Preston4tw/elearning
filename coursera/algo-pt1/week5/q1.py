@@ -42,16 +42,16 @@ the heap.
 
 def get_adjacency_list(text):
     graph = []
-    Edge = namedtuple('Edge', ['vertex_source', 'vertex_dest', 'distance'])
+    Edge = namedtuple('Edge', ['vertex_1', 'vertex_2', 'distance'])
     for line in text:
         line = line.strip()
-        vertex_source, *edges = line.split()
-        vertex_source = int(vertex_source)
+        vertex_1, *edges = line.split()
+        vertex_1 = int(vertex_source)
         for edge in edges:
-            vertex_dest, distance = edge.split(',')
-            vertex_dest = int(vertex_dest)
+            vertex_2 distance = edge.split(',')
+            vertex_2 = int(vertex_2)
             distance = int(distance)
-            e = Edge(vertex_source, vertex_dest, distance)
+            e = Edge(vertex_1, vertex_2, distance)
             graph.append(e)
     return graph
 
