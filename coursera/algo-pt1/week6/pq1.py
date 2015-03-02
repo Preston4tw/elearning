@@ -22,3 +22,44 @@ OPTIONAL CHALLENGE: If this problem is too easy for you, try implementing your
 own hash table for it. For example, you could compare performance under the
 chaining and open addressing approaches to resolving collisions.
 """
+
+def main():
+    """
+    This problem and its solution seems fairly straight forward.
+
+    Create a hash. Take the input integer array and for each integer x present,
+    set hash[x] = 1. Then, Iterate over every integer x in the hash. For each
+    integer x there are 20000 possible numbers y that satisfy x+y=t, where t is
+    the range -10000 to 10000.  Using a little algebra, subtract x from both
+    sides and y=t-x. Let t be the bottom end of the range, -10000. We can then
+    just do 20k lookups starting from the bottom end of the range all the way to
+    the top.
+
+    If any lookup is successful, verify x and y are distinct, and then set the
+    value of the number t in an answer hash to 1.
+
+    To get the answer to the problem, return the number of keys in the answer
+    hash.
+    """
+    filename = '2sum.txt'
+    with open(filename) as f:
+        data = f.readlines()
+    integer = {}
+    for line in data:
+        integer[int(line)] = 1
+
+    answers = {}
+    for x in integer:
+        t = -10000
+        for i in range(20000):
+            y = t - x
+            if y in integer:
+                if x != y:
+                    answers[t] = 1
+                    print("x: {}, y: {}, t: {}, len(answers): {}".format(x, y,
+                        t, len(answers)))
+            t += 1
+    print(len(answers)) # 427
+
+if __name__ == '__main__':
+    main()
