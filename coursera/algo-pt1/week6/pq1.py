@@ -59,7 +59,7 @@ def main():
                     print("x: {}, y: {}, t: {}, len(answers): {}".format(x, y,
                         t, len(answers)))
             t += 1
-    print(len(answers)) # 427
+    print(len(answers))
 
 if __name__ == '__main__':
     main()
