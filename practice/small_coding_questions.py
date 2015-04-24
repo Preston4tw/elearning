@@ -24,22 +24,46 @@ def multiplication_tables(low=1, high=12):
         print()
 
 # Sum integers from a text file, one per line
-def sum_integers(file_handle):
-    pass
+def sum_integers(filename):
+    fh = open(filename)
+    data = fh.readlines()
+    i = 0
+    for line in data:
+        i = int(line)
+        total += i
+    return total
 
 # Print odd numbers from 1 to 99
 def print_odds():
-    pass
+    for i in range(1,100,2):
+        print(i)
 
 # Find the largest int value in an array
 def find_max(int_array):
-    pass
+    largest_int = int_array[0]
+    for i in int_array[1:]:
+        if i > largest_int:
+            largest_int = i
+    return largest_int
 
 # Convert a three integer RGB value to hex
 # ex. (255,0,17) to 0xff0011
 def rgb_int_to_hex(rgb):
+    # Lets assume we're given a three digit tuple
     pass
 
 # Find the most frequently occurring number in a list (the mode)
 def find_mode(int_list):
-    pass
+    h = {}
+    for n in int_list:
+        if not h[n]:
+            h[n] = 1
+        else:
+            h[n] += 1
+    max_occur = -1
+    max_occur_int = None
+    for k,v in h.items()
+        if v > max_occur:
+            max_occur_int = k
+            max_occur = v
+    return max_occur_int
