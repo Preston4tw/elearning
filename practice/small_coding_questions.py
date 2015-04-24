@@ -9,8 +9,12 @@ def reverse_string(string):
     return new_string
 
 # Write a function to compute fibonacci numbers
-def fib():
-    pass
+def fib(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fib(n-1) + fib(n-2)
 
 # Print out the grade school multiplication tables
 def multiplication_tables(low=1, high=12):
