@@ -62,8 +62,8 @@ class Cursor(object):
     def select(self):
         print("select, {}".format(self.position))
 
-def bfs(graph, start, destination, seen_nodes=None, path=None):
-    #print("bfs(g, s:{}, d:{}, seen:{}, path:{})".format(start, destination, seen_nodes, path))
+def dfs(graph, start, destination, seen_nodes=None, path=None):
+    #print("dfs(g, s:{}, d:{}, seen:{}, path:{})".format(start, destination, seen_nodes, path))
     if not path:
         path = []
     if not seen_nodes:
@@ -80,7 +80,7 @@ def bfs(graph, start, destination, seen_nodes=None, path=None):
             if neighbor not in seen_nodes:
                 #print(" neighbors: {}".format(neighbors))
                 #print(" seen: {}".format(seen_nodes))
-                bfs(graph, neighbor, destination, seen_nodes, path)
+                dfs(graph, neighbor, destination, seen_nodes, path)
                 if destination in path:
                     return path
 
@@ -139,7 +139,7 @@ def main():
     cursor = Cursor('a')
     word = "con"
     for letter in word:
-        path = bfs(graph, cursor.position, letter)
+        path = dfs(graph, cursor.position, letter)
         # get the directions
         for letter in path[1:]:
             direction = [d for d,n in graph[cursor.position] if n == letter][0]
