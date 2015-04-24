@@ -2,15 +2,22 @@
 
 # Write a function to reverse a string
 def reverse_string(string):
-    pass
+    new_string = ""
+    # Damn off-by-one errors
+    for i in range(len(string)):
+        new_string += string[-i-1]
+    return new_string
 
 # Write a function to compute fibonacci numbers
 def fib():
     pass
 
 # Print out the grade school multiplication tables
-def multiplication_tables():
-    pass
+def multiplication_tables(low=1, high=12):
+    for i in range(low,high+1):
+        for j in range(low,high+1):
+            print(i*j, end="\t")
+        print()
 
 # Sum integers from a text file, one per line
 def sum_integers(file_handle):
