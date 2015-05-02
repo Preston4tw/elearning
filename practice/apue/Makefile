@@ -1,4 +1,4 @@
-all: ls cp cp2 getpid simpleshell errmsg uidgid
+all: ls cp cp2 getpid simpleshell errmsg uidgid simpleshell_errcatch
 
 ls:
 	gcc -o ls ls.c
@@ -20,3 +20,6 @@ errmsg:
 
 uidgid:
 	gcc -o uidgid uidgid.c
+
+simpleshell_errcatch:
+	gcc -o simpleshell_errcatch simpleshell_errcatch.c
