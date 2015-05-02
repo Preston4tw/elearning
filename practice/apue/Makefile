@@ -1,4 +1,4 @@
-all: ls cp cp2
+all: ls cp cp2 getpid simpleshell
 
 ls:
 	gcc -o ls ls.c
@@ -11,3 +11,6 @@ cp2:
 
 getpid:
 	gcc -o getpid getpid.c
+
+simpleshell:
+	gcc -o simpleshell simpleshell.c
