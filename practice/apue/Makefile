@@ -8,3 +8,6 @@ cp:
 
 cp2:
 	gcc -o cp2 cp2.c
+
+getpid:
+	gcc -o getpid getpid.c
